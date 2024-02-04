@@ -3,7 +3,7 @@ const createShip = require('./ship')
 
 const factoryShip = createShip(2);
 
-test('Test if factory ship is sunk', () => {
+test('Test if ship is sunk', () => {
   factoryShip.hit()
   expect(factoryShip.isSunk()).toBe(false);
   factoryShip.hit()

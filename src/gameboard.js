@@ -1,11 +1,26 @@
-class Gameboard {
-  // gameboard handles ship placement coordinates
-  // gameboard reports if all ships are sunk
-  placeShip (length) {
+import createShip from "./ship";
 
+function createGameboard () {
+  let hits = [];
+  let misses = [];
+  // shipPositions is an array of objects
+  let shipPositions = [];
+
+
+  function placeAt (coords, length = 1, position = 'horizontal') {
+    if (isValidPlacement()) {
+
+    }
   }
 
-  receiveAttack (coordinates) {
-    // takes pair of coords, determines whether it hit a ship, calls hit() on ship or records missed shot
+  function isValidPlacement () {
+    return true;
   }
+
+  function clear () {
+    hits = [];
+    misses = [];
+    shipPositions = [];
+  }
+  return { placeAt, receiveAttack, getHits, getMisses, areAllSunk, clear };
 }

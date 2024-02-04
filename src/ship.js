@@ -1,4 +1,5 @@
 function createShip (length) {
+  // closure in action with length variable
   let shotsTaken = 0;
   let hasSunk = false;
 
