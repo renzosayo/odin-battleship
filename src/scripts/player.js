@@ -1,4 +1,6 @@
 const createPlayer = (name, gameboard) => {
-  let name = name;
-  let gameboard = gameboard;
+  // let name = name;
+  // let gameboard = gameboard;
 }
+
+export default createPlayer;

@@ -55,4 +55,5 @@ function createGameboard () {
   return { placeShip, receiveAttack, getHits, getMisses, areAllSunk, clear, shipPositions };
 }
 
-module.exports = createGameboard;
+export default createGameboard;
+//  module.exports = createGameboard;

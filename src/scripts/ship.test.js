@@ -1,5 +1,6 @@
 // import { Ship, createShip } from "./ship";
-const createShip = require('./ship')
+// const createShip = require('./ship')
+import createShip from "./ship";
 
 const factoryShip = createShip(2);
 

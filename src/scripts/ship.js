@@ -20,4 +20,5 @@ function createShip (length) {
   return { hit, isSunk, getLength };
 }
 
-module.exports = createShip;
+// module.exports = createShip;
+export default createShip;
