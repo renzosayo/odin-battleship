@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Odin Battleship</title>
+  <link rel="stylesheet" href="./styles/styles.css">
+<script defer src="bundle.js"></script></head>
+<body>
+  <div class="header">
+    <h1 class="title">Odin Battleship</h1>
+  </div>
+  <div class="main">
+    <button class="new-game">New Game</button>
+    <div class="player-area">
+      <div class="board player"></div>
+      <h3>Player Board</h3>
+    </div>
+    <div class="computer-area">
+      <div class="board enemy"></div>
+      <h3>Enemy Board</h3>
+    </div>
+  </div>
+  <div class="footer">
+
+  </div>
+  <dialog class="setup">
+    <div class="setup-div">
+      <h2>Enemy fleet spotted! How should we proceed, admiral?</h2>
+      <div>
+        <div class="setup-board"></div>
+        <div class="ships-list"></div>
+      </div>
+      <div class="setup-buttons">
+        <button class="fight">Deploy the fleet!</button>
+        <button class="retreat">Retreat</button>
+      </div>
+    </div>
+  </dialog>
+  <script src="./scripts/index.js"></script>
+</body>
+</html>
