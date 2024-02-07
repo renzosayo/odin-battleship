@@ -52,7 +52,30 @@ function createGameboard () {
     shipPositions = [];
     activeShips = [];
   }
-  return { placeShip, receiveAttack, getHits, getMisses, areAllSunk, clear, shipPositions };
+
+  function randomizeBoard () {
+    
+  }
+
+  // draws board in console
+  function drawBoard () {
+    let string = '';
+    for (let y = 9; y >= 0; y--) {
+      
+      for (let x = 0; x < 10; x++) {
+        
+        if (shipPositions[JSON.stringify([x, y])]) {
+          string += 'o ';
+        } else {
+          string += '- ';
+        }
+      }
+      string += '\n';
+    }
+    console.log(string);
+  }
+
+  return { placeShip, receiveAttack, getHits, getMisses, areAllSunk, clear, shipPositions, drawBoard  };
 }
 
 export default createGameboard;

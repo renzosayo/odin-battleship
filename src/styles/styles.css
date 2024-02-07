@@ -106,11 +106,15 @@ h3 {
   width: 200px;
 }
 
+.rotate-btn,
 .ships-list button {
   width: 90%;
   height: 60px;
   font-size: 24px;
   margin: 10px 5%;
+}
+
+.ships-list button {
   pointer-events: none;
 }
 
@@ -124,7 +128,7 @@ h3 {
   background-color: rgb(233, 249, 254);
 }
 
-.setup-board .grid {
+.grid {
   border: 1px solid black;
 }
 
@@ -133,12 +137,30 @@ dialog::backdrop {
   opacity: .5;
 }
 
-.highlight,
-.grid:hover {
+.invalid {
+  background-color: red;
+}
+
+.occupied {
+  background-color: #003153;
+}
+
+.highlight {
   background-color: rgb(132, 226, 255);
 }
 
 h2 {
   font-size: 24px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.fight,
+.retreat {
+  height: 60px;
+  width: 200px;
+  font-size: 24px;
+}
+
+.hide {
+  display: none;
 }
