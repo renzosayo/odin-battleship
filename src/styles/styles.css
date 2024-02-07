@@ -164,3 +164,19 @@ h2 {
 .hide {
   display: none;
 }
+
+.computer .grid:hover {
+  background-color: red;
+}
+
+.hit {
+  background-color: red;
+}
+
+.sunk {
+  background-color: rgb(118, 1, 1);
+}
+
+.miss {
+  background-color: #006994;
+}

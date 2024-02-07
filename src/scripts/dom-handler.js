@@ -14,7 +14,7 @@ const createDomHandler = () => {
     const divStyle = getComputedStyle(div);
 
     // slice needed because computed style includes 'px'
-    let width = divStyle.width.slice(0, -2) / 10;
+    let width = divStyle.width.slice(0, -2) / 10; 
 
     for (let y = 9; y >= 0; y--) {
       for (let x = 0; x < 10; x++) {

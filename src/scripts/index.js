@@ -35,7 +35,7 @@ function gameflow () {
     const retreatBtn = document.querySelector('.retreat');
     retreatBtn.addEventListener('click', domHandler.closeSetup);
     
-    const setupBoard = document.querySelector('.setup-board');
+    /*const setupBoard = document.querySelector('.setup-board');
     setupBoard.addEventListener('click', (e) => {
       // clientX/Y uses coords relative to window
       // subtract board's position
@@ -44,6 +44,7 @@ function gameflow () {
       let y = (e.clientY - setupPos.top);
       console.log(`${x}, ${y}`);
     });
+    */
 
     // setup grids listeners
     const grids = document.querySelectorAll('.setup-board .grid');
@@ -116,8 +117,15 @@ function gameflow () {
 
     domHandler.drawGrid(document.querySelector('.computer'));
     const computerGameboard = createGameboard();
-    alert('startGame');
-    
+    computerGameboard.randomizeBoard();
+    const enemyGrid = document.querySelectorAll('.computer .grid');
+    enemyGrid.forEach((grid) => {
+      grid.addEventListener('click', () => {
+        let coord = JSON.parse(grid.getAttribute('coords'));
+        if(computerGameboard.receiveAttack(coord)) grid.classList.add('hit');
+        else grid.classList.add('miss');
+      });
+    });
   }
 
   init();

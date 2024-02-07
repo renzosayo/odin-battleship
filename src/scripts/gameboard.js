@@ -1,3 +1,5 @@
+import createShip from "./ship";
+
 function createGameboard () {
   let hits = [];
   let misses = [];
@@ -24,9 +26,14 @@ function createGameboard () {
       let ship = shipPositions[coordStr];
       ship.hit();
       if (ship.isSunk()) {
+        // bug waiting to happen
+        console.log(activeShips);
         activeShips.splice(activeShips.indexOf(ship.getLength()), 1);
       }
       hits.push(coordStr);
+      if (areAllSunk()) {
+        alert('defeated!');
+      }
       return true;
     } 
     misses.push(coordStr);
@@ -53,6 +60,7 @@ function createGameboard () {
     activeShips = [];
   }
 
+  // returns false if invalid, list of coordinates if valid
   const checkPlacement = (grid, length, direction, shipPositions) => {
     // parse and push coords into shipCoordinates
     let shipCoordinates = [];
@@ -89,6 +97,34 @@ function createGameboard () {
     return shipCoordinates;
   }
 
+  const randomizeBoard = () => {
+    let lengths = [5, 4, 3, 3, 2];
+    const ships = lengths.map((ship) => {
+      return createShip(ship);
+    });
+
+    console.log(ships);
+
+    while (ships.length > 0) {
+      let ship = ships.shift();
+      let isValid = false;
+      let direction = 'horizontal';
+      do {
+        // random direction
+        direction = (Math.floor(Math.random() * 2) === 0 ? 'horizontal': 'vertical');
+        
+        // mock grid
+        let coords = JSON.stringify([Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)]);
+        let grid = {
+          getAttribute : () => coords,
+          coords
+        };
+        isValid = checkPlacement(grid, ship.getLength(), direction, shipPositions);
+      } while (!isValid);
+      placeShip(ship, isValid[0], direction);
+    }
+  };
+
   // draws board in console
   function drawBoard () {
     let string = '';
@@ -107,7 +143,7 @@ function createGameboard () {
     console.log(string);
   }
 
-  return { placeShip, receiveAttack, getHits, getMisses, areAllSunk, clear, shipPositions, drawBoard, checkPlacement  };
+  return { placeShip, receiveAttack, getHits, getMisses, areAllSunk, clear, shipPositions, drawBoard, checkPlacement, randomizeBoard  };
 }
 
 export default createGameboard;
