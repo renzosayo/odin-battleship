@@ -53,8 +53,40 @@ function createGameboard () {
     activeShips = [];
   }
 
-  function randomizeBoard () {
-    
+  const checkPlacement = (grid, length, direction, shipPositions) => {
+    // parse and push coords into shipCoordinates
+    let shipCoordinates = [];
+    let [x, y] = JSON.parse(grid.getAttribute('coords'));
+    if (direction === 'horizontal') {
+      for (let i = 0; i < length; i++) {
+        shipCoordinates.push([x, y]);
+        x += 1;
+      }
+    } else {
+      for (let i = 0; i < length; i++) {
+        shipCoordinates.push([x, y]);
+        y -= 1;
+      }
+    }
+
+    // checking if out of bounds
+    const countOutOfBounds = shipCoordinates.reduce((invalid, coord) => {
+      let [x, y] = coord;
+      if (x > 9 || y > 9 || x < 0 || y < 0) 
+        return invalid + 1;
+      return invalid;
+    }, 0);
+
+    // checking if coord is already taken
+    const countOccupiedCoords = shipCoordinates.reduce((invalid, coord) => {
+      let strCoord = JSON.stringify(coord);
+      if (shipPositions[strCoord])
+        return invalid + 1;
+      return invalid;
+    }, 0);
+
+    if (countOutOfBounds > 0 || countOccupiedCoords > 0) return false;
+    return shipCoordinates;
   }
 
   // draws board in console
@@ -75,7 +107,7 @@ function createGameboard () {
     console.log(string);
   }
 
-  return { placeShip, receiveAttack, getHits, getMisses, areAllSunk, clear, shipPositions, drawBoard  };
+  return { placeShip, receiveAttack, getHits, getMisses, areAllSunk, clear, shipPositions, drawBoard, checkPlacement  };
 }
 
 export default createGameboard;

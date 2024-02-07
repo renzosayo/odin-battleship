@@ -65,7 +65,7 @@ function gameflow () {
         let length = fleet[0].getLength();
 
         // returns coordinates if valid, else false
-        isValid = domHandler.checkPlacement(grid, length, direction, gameboard.shipPositions);
+        isValid = gameboard.checkPlacement(grid, length, direction, gameboard.shipPositions);
         if (isValid) {
           isValid.forEach((coord) => {
             let highlight = document.querySelector(`[coords="[${coord}]"]`);
