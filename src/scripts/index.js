@@ -34,17 +34,6 @@ function gameflow () {
     // closeModal
     const retreatBtn = document.querySelector('.retreat');
     retreatBtn.addEventListener('click', domHandler.closeSetup);
-    
-    /*const setupBoard = document.querySelector('.setup-board');
-    setupBoard.addEventListener('click', (e) => {
-      // clientX/Y uses coords relative to window
-      // subtract board's position
-      const setupPos = setupBoard.getBoundingClientRect();
-      let x = (e.clientX - setupPos.left);
-      let y = (e.clientY - setupPos.top);
-      console.log(`${x}, ${y}`);
-    });
-    */
 
     // setup grids listeners
     const grids = document.querySelectorAll('.setup-board .grid');
@@ -87,6 +76,11 @@ function gameflow () {
           // removes ships from right pane
           const shipsList = document.querySelector('.ships-list');
           shipsList.removeChild(shipsList.firstChild);
+          if (shipsList.firstChild === null) {
+            const fightBtn = document.querySelector('.fight');
+            fightBtn.addEventListener('click', startGame);
+            fightBtn.classList.remove('disabled');
+          }
 
           // highlights occupied tiles
           isValid.forEach((coord) => {
@@ -105,8 +99,6 @@ function gameflow () {
       else direction = 'horizontal';
     });
 
-    const fightBtn = document.querySelector('.fight');
-    fightBtn.addEventListener('click', startGame);
   }
 
   const startGame = () => {
@@ -121,11 +113,30 @@ function gameflow () {
     const enemyGrid = document.querySelectorAll('.computer .grid');
     enemyGrid.forEach((grid) => {
       grid.addEventListener('click', () => {
+        // your attack
         let coord = JSON.parse(grid.getAttribute('coords'));
-        if(computerGameboard.receiveAttack(coord)) grid.classList.add('hit');
-        else grid.classList.add('miss');
+        if(computerGameboard.receiveAttack(coord)) {
+          grid.classList.add('hit');
+        }
+        else {
+          grid.classList.add('miss');
+          setTimeout(enemyTurn, 500);
+        }
+
+        // enemy attack
+        
       });
     });
+  }
+
+  const enemyTurn = () => {
+    let attackedCoord = JSON.parse(gameboard.getRandomUnusedTile());
+    let attackedTile = document.querySelector(`[coords="[${attackedCoord}]"]`);
+    if (gameboard.receiveAttack(attackedCoord)) {
+      attackedTile.classList.add('hit');
+      setTimeout(enemyTurn, 500);
+    }
+    else attackedTile.classList.add('miss');
   }
 
   init();

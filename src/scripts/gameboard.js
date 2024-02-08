@@ -1,13 +1,13 @@
 import createShip from "./ship";
 
-function createGameboard () {
+const createGameboard = () => {
   let hits = [];
   let misses = [];
   let shipPositions = {};
   let activeShips = [];
 
   // does not check if occupied, would rely on gameflow to check
-  function placeShip (ship, coord, direction) {
+  const placeShip = (ship, coord, direction) => {
     let [x, y] = coord;
     let length = ship.getLength();
     activeShips.push(length);
@@ -19,7 +19,7 @@ function createGameboard () {
     }
   }
 
-  function receiveAttack (coord) {
+  const receiveAttack = (coord) => {
     // coords recorded in JSON for easy comparison
     let coordStr = JSON.stringify(coord);
     if (shipPositions[coordStr]) {
@@ -40,20 +40,20 @@ function createGameboard () {
     return false;
   }
 
-  function getHits () {
+  const getHits = () => {
     return hits;
   }
 
-  function getMisses () {
+  const getMisses = () => {
     return misses;
   }
   
-  function areAllSunk () {
+  const areAllSunk = () => {
     if (activeShips.length < 1) return true;
     return false;
   }
 
-  function clear () {
+  const clear = () => {
     hits = [];
     misses = [];
     shipPositions = [];
@@ -125,8 +125,21 @@ function createGameboard () {
     }
   };
 
+  const getRandomUnusedTile = () => {
+    let coordStr = '';
+    let x = 0;
+    let y = 0;
+    while (true) {
+      x = Math.floor(Math.random() * 10);
+      y = Math.floor(Math.random() * 10);
+      coordStr = JSON.stringify([x, y]);
+      if (!hits.includes(coordStr) && !misses.includes(coordStr)) break;
+    }
+    return coordStr;
+  }
+
   // draws board in console
-  function drawBoard () {
+  const drawBoard = () => {
     let string = '';
     for (let y = 9; y >= 0; y--) {
       
@@ -143,7 +156,19 @@ function createGameboard () {
     console.log(string);
   }
 
-  return { placeShip, receiveAttack, getHits, getMisses, areAllSunk, clear, shipPositions, drawBoard, checkPlacement, randomizeBoard  };
+  return { 
+    placeShip, 
+    receiveAttack, 
+    getHits, 
+    getMisses, 
+    areAllSunk, 
+    clear, 
+    shipPositions, 
+    drawBoard, 
+    checkPlacement, 
+    randomizeBoard,
+    getRandomUnusedTile
+  };
 }
 
 export default createGameboard;

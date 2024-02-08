@@ -4,10 +4,12 @@ const createDomHandler = () => {
 
   const openSetup = () => {
     dialog.showModal();
+    dialog.classList.add('show');
   }
 
   const closeSetup = () => {
     dialog.close(); 
+    dialog.classList.remove('show');
   }
 
   const drawGrid = (div, gameboard = null) => {
