@@ -49,7 +49,11 @@ const createDomHandler = () => {
     });
   }
 
-  return { openSetup, drawGrid, loadShipsList, closeSetup };
+  const gameOver = () => {
+    
+  }
+
+  return { openSetup, drawGrid, loadShipsList, closeSetup, gameOver };
 }
 
 export default createDomHandler;

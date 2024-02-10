@@ -7,7 +7,7 @@ import createGameboard from "./gameboard";
 function gameflow () {
 
   const domHandler = createDomHandler();
-  const gameboard = createGameboard();
+  const gameboard = createGameboard('Player');
   const fleet = [
     createShip(5),
     createShip(4),
@@ -108,11 +108,11 @@ function gameflow () {
     domHandler.drawGrid(document.querySelector('.player'), gameboard);
 
     domHandler.drawGrid(document.querySelector('.computer'));
-    const computerGameboard = createGameboard();
+    const computerGameboard = createGameboard('Computer');
     computerGameboard.randomizeBoard();
     const enemyGrid = document.querySelectorAll('.computer .grid');
     enemyGrid.forEach((grid) => {
-      grid.addEventListener('click', () => {
+      grid.addEventListener('click', function attack()  {
         // your attack
         let coord = JSON.parse(grid.getAttribute('coords'));
         if(computerGameboard.receiveAttack(coord)) {
@@ -122,9 +122,7 @@ function gameflow () {
           grid.classList.add('miss');
           setTimeout(enemyTurn, 500);
         }
-
-        // enemy attack
-        
+        grid.removeEventListener('click', attack);
       });
     });
   }

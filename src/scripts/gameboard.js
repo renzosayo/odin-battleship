@@ -1,6 +1,6 @@
 import createShip from "./ship";
 
-const createGameboard = () => {
+const createGameboard = (player) => {
   let hits = [];
   let misses = [];
   let shipPositions = {};
@@ -32,7 +32,7 @@ const createGameboard = () => {
       }
       hits.push(coordStr);
       if (areAllSunk()) {
-        alert('defeated!');
+        alert(`${player} defeated!`);
       }
       return true;
     } 
