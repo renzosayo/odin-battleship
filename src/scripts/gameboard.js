@@ -1,3 +1,4 @@
+import createDomHandler from "./dom-handler";
 import createShip from "./ship";
 
 const createGameboard = (player) => {
@@ -27,12 +28,12 @@ const createGameboard = (player) => {
       ship.hit();
       if (ship.isSunk()) {
         // bug waiting to happen
-        console.log(activeShips);
         activeShips.splice(activeShips.indexOf(ship.getLength()), 1);
       }
       hits.push(coordStr);
       if (areAllSunk()) {
-        alert(`${player} defeated!`);
+        // alert(`${player} defeated!`);
+        return `${player}`;
       }
       return true;
     } 
@@ -102,8 +103,6 @@ const createGameboard = (player) => {
     const ships = lengths.map((ship) => {
       return createShip(ship);
     });
-
-    console.log(ships);
 
     while (ships.length > 0) {
       let ship = ships.shift();
