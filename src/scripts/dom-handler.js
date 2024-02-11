@@ -14,9 +14,7 @@ const createDomHandler = () => {
 
   const drawGrid = (div, gameboard = null) => {
     // reset div before adding new content
-    while (div.firstChild) {
-      div.removeChild(div.firstChild);
-    }
+    while (div.firstChild)  div.removeChild(div.firstChild);
 
     // slice needed because computed style includes 'px'
     const divStyle = getComputedStyle(div);

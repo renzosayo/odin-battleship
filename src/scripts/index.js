@@ -4,9 +4,8 @@ import createShip from "./ship";
 import createGameboard from "./gameboard";
 
 function gameflow () {
-
-  const domHandler = createDomHandler();
-  const gameboard = createGameboard('Player');
+  const domHandler        = createDomHandler();
+  const gameboard         = createGameboard('Player');
   const computerGameboard = createGameboard('Computer');
   let fleet = [];
   let direction = 'horizontal';
@@ -77,6 +76,8 @@ function gameflow () {
 
       // listener for placing ships
       grid.addEventListener('click', () => {
+        let length = fleet[0].getLength();
+        isValid = gameboard.checkPlacement(grid, length, direction);
         if (isValid) {
           let nextShip = fleet.shift();
           let coord = JSON.parse(grid.getAttribute('coords'));
@@ -102,17 +103,11 @@ function gameflow () {
   }
 
   const newGame = () => {
-
-    // shows dialog
-    domHandler.openSetup();
-    domHandler.drawGrid(document.querySelector('.setup-board'));
-    domHandler.loadShipsList(fleet);
-    setGridListeners();
-
     // reset
     gameboard.clear();
     computerGameboard.clear();
     domHandler.clearGrids();
+    domHandler.openSetup();
     fleet = [
       createShip(5),
       createShip(4),
@@ -121,6 +116,10 @@ function gameflow () {
       createShip(2)
     ];
 
+    domHandler.drawGrid(document.querySelector('.setup-board'));
+    domHandler.loadShipsList(fleet);
+    setGridListeners();
+
     document.querySelector('.fight').classList.add('disabled');
   }
 
@@ -128,11 +127,11 @@ function gameflow () {
     document.querySelector('.new-game').classList.add('hide');
     domHandler.closeSetup();
 
-    domHandler.drawGrid(document.querySelector('.player'), gameboard);
+    domHandler.drawGrid(document.querySelector('.player'));
     domHandler.drawGrid(document.querySelector('.computer'));
     
     computerGameboard.randomizeBoard();
-
+    gameboard.highlightShips();
     const enemyGrid = document.querySelectorAll('.computer .grid');
     enemyGrid.forEach((grid) => {
       grid.addEventListener('click', function attack()  {
@@ -165,8 +164,6 @@ function gameflow () {
     }
     else attackedTile.classList.add('miss');
   }
-
-
 
   const gameOver = (player) => {
     alert(player + ' defeated!');

@@ -23,7 +23,6 @@ const createGameboard = (player) => {
   const receiveAttack = (coord) => {
     // coords recorded in JSON for easy comparison
     let coordStr = JSON.stringify(coord);
-    console.log(shipPositions[coordStr]);
     if (shipPositions[coordStr]) {
       let ship = shipPositions[coordStr];
       ship.hit();
@@ -55,7 +54,6 @@ const createGameboard = (player) => {
   }
 
   const clear = () => {
-    alert(`${player} cleared`);
     hits = [];
     misses = [];
     shipPositions = {};
@@ -138,6 +136,15 @@ const createGameboard = (player) => {
     return coordStr;
   }
 
+  // should be in domHandler
+  const highlightShips = () => {
+    let positions = Object.keys(shipPositions);
+      positions.forEach((coord) => {
+        document.querySelector(`[coords="[${JSON.parse(coord)}]"]`)
+          .classList.add('occupied');
+    });
+  }
+
   // draws board in console
   const drawBoard = () => {
     let string = '';
@@ -160,14 +167,14 @@ const createGameboard = (player) => {
     getHits, 
     getMisses, 
     areAllSunk, 
-    clear, 
-    shipPositions, 
+    clear,  
     drawBoard, 
     checkPlacement, 
     randomizeBoard,
-    getRandomUnusedTile
+    getRandomUnusedTile,
+    highlightShips,
+    shipPositions
   };
 }
 
 export default createGameboard;
-//  module.exports = createGameboard;
