@@ -105,6 +105,7 @@ function gameflow () {
     // reset
     gameboard.clear();
     computerGameboard.clear();
+    domHandler.clearGrids();
     fleet = [
       createShip(5),
       createShip(4),

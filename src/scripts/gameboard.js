@@ -55,10 +55,12 @@ const createGameboard = (player) => {
   }
 
   const clear = () => {
+    alert(player + ' cleared');
     hits = [];
     misses = [];
     shipPositions = [];
     activeShips = [];
+    console.log(shipPositions);
   }
 
   // returns false if invalid, list of coordinates if valid

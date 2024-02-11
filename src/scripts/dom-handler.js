@@ -9,11 +9,14 @@ const createDomHandler = () => {
 
   const closeSetup = () => {
     dialog.close(); 
+    dialog.classList.remove('show');
   }
 
   const drawGrid = (div, gameboard = null) => {
     // reset div before adding new content
-    div.innerHTML = '';
+    while (div.firstChild) {
+      div.removeChild(div.firstChild);
+    }
 
     // slice needed because computed style includes 'px'
     const divStyle = getComputedStyle(div);
@@ -50,6 +53,11 @@ const createDomHandler = () => {
     });
   }
 
+  const clearGrids = () => {
+    document.querySelector('.player').innerHTML = '';
+    document.querySelector('.computer').innerHTML = '';
+  }
+
   const removeListener = () => {
     const grids = document.querySelectorAll('.grid');
     grids.forEach((grid) => {
@@ -57,7 +65,7 @@ const createDomHandler = () => {
     });
   }
 
-  return { openSetup, drawGrid, loadShipsList, closeSetup };
+  return { openSetup, drawGrid, loadShipsList, closeSetup, clearGrids };
 }
 
 export default createDomHandler;
