@@ -58,13 +58,6 @@ const createDomHandler = () => {
     document.querySelector('.computer').innerHTML = '';
   }
 
-  const removeListener = () => {
-    const grids = document.querySelectorAll('.grid');
-    grids.forEach((grid) => {
-      grid.removeEventListener('click', attack);
-    });
-  }
-
   return { openSetup, drawGrid, loadShipsList, closeSetup, clearGrids };
 }
 

@@ -23,6 +23,7 @@ const createGameboard = (player) => {
   const receiveAttack = (coord) => {
     // coords recorded in JSON for easy comparison
     let coordStr = JSON.stringify(coord);
+    console.log(shipPositions[coordStr]);
     if (shipPositions[coordStr]) {
       let ship = shipPositions[coordStr];
       ship.hit();
@@ -32,7 +33,6 @@ const createGameboard = (player) => {
       }
       hits.push(coordStr);
       if (areAllSunk()) {
-        // alert(`${player} defeated!`);
         return `${player}`;
       }
       return true;
@@ -55,16 +55,15 @@ const createGameboard = (player) => {
   }
 
   const clear = () => {
-    alert(player + ' cleared');
+    alert(`${player} cleared`);
     hits = [];
     misses = [];
-    shipPositions = [];
+    shipPositions = {};
     activeShips = [];
-    console.log(shipPositions);
   }
 
   // returns false if invalid, list of coordinates if valid
-  const checkPlacement = (grid, length, direction, shipPositions) => {
+  const checkPlacement = (grid, length, direction) => {
     // parse and push coords into shipCoordinates
     let shipCoordinates = [];
     let [x, y] = JSON.parse(grid.getAttribute('coords'));
@@ -143,9 +142,7 @@ const createGameboard = (player) => {
   const drawBoard = () => {
     let string = '';
     for (let y = 9; y >= 0; y--) {
-      
       for (let x = 0; x < 10; x++) {
-        
         if (shipPositions[JSON.stringify([x, y])]) {
           string += 'o ';
         } else {

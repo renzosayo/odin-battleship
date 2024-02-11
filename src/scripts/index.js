@@ -36,11 +36,11 @@ function gameflow () {
   }
 
   const setGridListeners = () => {
-    let isValid = false;
-
     // setup grids listeners
     const grids = document.querySelectorAll('.setup-board .grid');
     grids.forEach((grid) => {
+      let isValid = false;
+
       // resets highlights and invalids
       grid.addEventListener('mouseenter', () => {
         document.querySelectorAll('.invalid')
@@ -63,7 +63,7 @@ function gameflow () {
           let length = fleet[0].getLength();
 
           // returns coordinates if valid, else false
-          isValid = gameboard.checkPlacement(grid, length, direction, gameboard.shipPositions);
+          isValid = gameboard.checkPlacement(grid, length, direction);
           if (isValid) {
             isValid.forEach((coord) => {
               let highlight = document.querySelector(`[coords="[${coord}]"]`);
@@ -102,6 +102,13 @@ function gameflow () {
   }
 
   const newGame = () => {
+
+    // shows dialog
+    domHandler.openSetup();
+    domHandler.drawGrid(document.querySelector('.setup-board'));
+    domHandler.loadShipsList(fleet);
+    setGridListeners();
+
     // reset
     gameboard.clear();
     computerGameboard.clear();
@@ -112,13 +119,9 @@ function gameflow () {
       createShip(3),
       createShip(3),
       createShip(2)
-    ];  
+    ];
 
-    // shows dialog
-    domHandler.openSetup();
-    domHandler.drawGrid(document.querySelector('.setup-board'));
-    domHandler.loadShipsList(fleet);
-    setGridListeners();
+    document.querySelector('.fight').classList.add('disabled');
   }
 
   const startGame = () => {
