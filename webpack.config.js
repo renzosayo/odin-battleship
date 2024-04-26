@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: "./src/scripts/index.js",
+  entry: "./src/scripts/index.ts",
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
@@ -14,6 +14,9 @@ module.exports = {
       template: "./src/index.html",
     }),
   ],
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
   module: {
     rules: [
       {
@@ -21,8 +24,9 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.ts$/,
+        test: /\.tsx?$/,
         use: ["ts-loader"],
+        exclude: /node_modules/,
       },
     ],
   },

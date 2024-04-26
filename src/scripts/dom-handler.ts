@@ -1,5 +1,7 @@
+import { Gameboard } from "./types";
+
 const createDomHandler = () => {
-  const dialog = document.querySelector(".setup");
+  const dialog: HTMLDialogElement = document.querySelector(".setup")!;
 
   const openSetup = () => {
     dialog.showModal();
@@ -9,20 +11,23 @@ const createDomHandler = () => {
   const closeSetup = () => {
     // clumsy but gets the job done. i dont want to break it lol
     // clear ships list when the player clicks on 'retreat'
-    const shipsListDiv = document.querySelector(".ships-list");
+    const shipsListDiv = document.querySelector(".ships-list")!;
     shipsListDiv.innerHTML = "";
 
     dialog.close();
     dialog.classList.remove("show");
   };
 
-  const drawGrid = (div, gameboard = null) => {
+  const drawGrid = (
+    div: HTMLDivElement,
+    gameboard: Gameboard | null = null,
+  ) => {
     // reset div before adding new content
     while (div.firstChild) div.removeChild(div.firstChild);
 
     // slice needed because computed style includes 'px'
     const divStyle = getComputedStyle(div);
-    let width = divStyle.width.slice(0, -2) / 10;
+    let width: number = Number(divStyle.width.slice(0, -2)) / 10;
 
     for (let y = 9; y >= 0; y--) {
       for (let x = 0; x < 10; x++) {
@@ -35,18 +40,18 @@ const createDomHandler = () => {
       }
     }
 
-    if (gameboard) {
+    if (gameboard !== null) {
       let positions = Object.keys(gameboard.shipPositions);
       positions.forEach((coord) => {
         document
-          .querySelector(`[coords="[${JSON.parse(coord)}]"]`)
+          .querySelector(`[coords="[${JSON.parse(coord)}]"]`)!
           .classList.add("occupied");
       });
     }
   };
 
   const loadShipsList = () => {
-    const shipsList = document.querySelector(".ships-list");
+    const shipsList = document.querySelector(".ships-list")!;
     let shipNames = [
       "Carrier (5)",
       "Battleship (4)",
@@ -63,8 +68,8 @@ const createDomHandler = () => {
   };
 
   const clearGrids = () => {
-    document.querySelector(".player").innerHTML = "";
-    document.querySelector(".computer").innerHTML = "";
+    document.querySelector(".player")!.innerHTML = "";
+    document.querySelector(".computer")!.innerHTML = "";
   };
 
   return { openSetup, drawGrid, loadShipsList, closeSetup, clearGrids };

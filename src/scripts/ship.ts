@@ -1,8 +1,4 @@
-type Ship = {
-  hit: Function;
-  isSunk: Function;
-  getLength: Function;
-};
+import { Ship } from "./types";
 
 function createShip(length: number): Ship {
   // closure in action with length variable
@@ -13,9 +9,7 @@ function createShip(length: number): Ship {
   }
 
   function isSunk(): boolean {
-    if (shotsTaken >= length) {
-      return true;
-    }
+    if (shotsTaken >= length) return true;
     return false;
   }
 
